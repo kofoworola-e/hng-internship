@@ -7,24 +7,19 @@ import os
 # Set Page Layout
 st.set_page_config(page_title="Google Play Store Insights", layout="wide")
 
-# Get the current working directory
-current_directory = os.getcwd()
-
-# Build the absolute path to the data.parquet file
-data_file_path = os.path.join(current_directory, "data", "data.parquet")
-
-# Display the absolute path (for debugging purposes)
-st.write(f"Looking for the data file at: {data_file_path}")
+# Build the relative path to the data.parquet file inside the stage_4 folder
+data_file_path = os.path.join("stage_4", "data", "data.parquet")
 
 # Load Data
 @st.cache_data
 def load_data():
-    # Check if the file exists at the absolute path
+    # Check if the file exists at the relative path
     if os.path.exists(data_file_path):
         return pd.read_parquet(data_file_path)
     else:
         st.error(f"File not found at {data_file_path}")
         return None
+
 
 df = load_data()
 
