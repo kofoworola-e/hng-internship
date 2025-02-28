@@ -7,13 +7,14 @@ import os
 # Set Page Layout
 st.set_page_config(page_title="Google Play Store Insights", layout="wide")
 
-# Load Data
-@st.cache_data
 # Get the current working directory
 current_directory = os.getcwd()
 
 # Build the absolute path to the data.parquet file
 data_file_path = os.path.join(current_directory, "data", "data.parquet")
+
+# Display the absolute path (for debugging purposes)
+st.write(f"Looking for the data file at: {data_file_path}")
 
 # Load Data
 @st.cache_data
