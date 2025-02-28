@@ -2,14 +2,28 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import gdown
+import os
 
 # Set Page Layout
 st.set_page_config(page_title="Google Play Store Insights", layout="wide")
 
 # Load Data
 @st.cache_data
+# Get the current working directory
+current_directory = os.getcwd()
+
+# Build the absolute path to the data.parquet file
+data_file_path = os.path.join(current_directory, "data", "data.parquet")
+
+# Load Data
+@st.cache_data
 def load_data():
-    return pd.read_parquet("data/data.parquet")
+    # Check if the file exists at the absolute path
+    if os.path.exists(data_file_path):
+        return pd.read_parquet(data_file_path)
+    else:
+        st.error(f"File not found at {data_file_path}")
+        return None
 
 df = load_data()
 
